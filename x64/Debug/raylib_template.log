@@ -1,0 +1,3 @@
+﻿  main.cpp
+E:\Raylib-Projects\raylib_template\raylib_template\vendor\imgui\rlImGui.h(35,21): warning C4091: 'extern ': ignored on left of 'ImFont' when no variable is declared
+  raylib_template.vcxproj -> E:\Raylib-Projects\raylib_template\x64\Debug\raylib_template.exe
