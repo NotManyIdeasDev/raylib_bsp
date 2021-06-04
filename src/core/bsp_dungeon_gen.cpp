@@ -21,7 +21,7 @@ void BSPDungeonGenerator::GenerateSubparts(unsigned int iterations, float minAmp
 
 			for (int j = 0; j < currentSubparts; j++)
 			{
-				bool direction = subparts[j].width > subparts[j].height ? 1 : 0; //0 = horizontal, 1 = vertical;
+				bool direction = subparts[j].width * RNG::GenerateNumber<float>(0.7f, 1.3f) > subparts[j].height * RNG::GenerateNumber<float>(0.7f, 1.3f) ? 1 : 0; //0 = horizontal, 1 = vertical;
 
 				if (direction == 0)
 				{
