@@ -9,7 +9,7 @@ void BSPDungeonGenerator::GenerateSubparts(unsigned int iterations, float minAmp
 {
 	subparts.clear();
 
-	for (int i = 0; i < iterations; i++)
+	for (int i = 0; i < iterations + 1; i++)
 	{
 		if (i == 0)
 		{
@@ -43,22 +43,58 @@ void BSPDungeonGenerator::GenerateSubparts(unsigned int iterations, float minAmp
 					subparts.push_back(first);
 					subparts.push_back(second);
 				}
-
-
 			}
 		}
 	}
 }
 
-void BSPDungeonGenerator::DrawSubparts(unsigned int thickness)
+void BSPDungeonGenerator::DrawSubparts(unsigned int thickness, Color color)
 {
 	for (auto& rec : subparts)
 	{
-		DrawRectangleLinesEx(rec, thickness, WHITE);
+		DrawRectangleLinesEx(rec, thickness, color);
+	}
+}
+
+void BSPDungeonGenerator::GenerateRooms(float minSizePercentage, float maxSizePercentage)
+{
+	rooms.clear();
+
+	for (int i = 0; i < subparts.size(); i++)
+	{
+		Rectangle room = { subparts[i].x + RNG::GenerateNumber<int>(0, subparts[i].width * 0.3f), subparts[i].y + RNG::GenerateNumber<int>(0, subparts[i].height * 0.3f), subparts[i].width * RNG::GenerateNumber<float>(minSizePercentage, maxSizePercentage), subparts[i].height * RNG::GenerateNumber<float>(minSizePercentage, maxSizePercentage) };
+		rooms.push_back(room);
+	}
+}
+
+void BSPDungeonGenerator::CutRooms(int maxRoomAmount)
+{
+	int currentRoomAmount = rooms.size();
+
+	if (currentRoomAmount > maxRoomAmount)
+	{
+		for (int i = currentRoomAmount; i > maxRoomAmount; i--)
+		{
+			int randomIndex = RNG::GenerateNumber<int>(0, rooms.size() - 1);
+			rooms.erase(rooms.begin() + randomIndex);
+		}
+	}
+}
+
+void BSPDungeonGenerator::DrawRooms(Color color)
+{
+	for (auto& room : rooms)
+	{
+		DrawRectangle(room.x, room.y, room.width, room.height, color);
 	}
 }
 
 int BSPDungeonGenerator::GetSubpartsCount()
 {
 	return subparts.size();
+}
+
+int BSPDungeonGenerator::GetRoomsCount()
+{
+	return rooms.size();
 }

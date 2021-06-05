@@ -12,11 +12,17 @@ public:
 	BSPDungeonGenerator(Rectangle startArea);
 
 	void GenerateSubparts(unsigned int iterations, float minAmplitude, float maxAmplitude);
-	void DrawSubparts(unsigned int thickness);
+	void DrawSubparts(unsigned int thickness, Color color = GREEN);
+
+	void GenerateRooms(float minSizePercentage, float maxSizePercentage);
+	void CutRooms(int maxRoomAmount);
+	void DrawRooms(Color color = WHITE);
 
 	int GetSubpartsCount();
+	int GetRoomsCount();
 
 private:
 	Rectangle startDungeonArea;
 	std::vector<Rectangle> subparts;
+	std::vector<Rectangle> rooms;
 };
