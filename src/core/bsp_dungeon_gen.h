@@ -3,6 +3,7 @@
 #include <raymath.h>
 #include <vector>
 #include "random_gen.h"
+#include "math_utils.h"
 #include <iostream>
 #include <algorithm>
 
@@ -15,8 +16,10 @@ public:
 	void GenerateSubparts(unsigned int iterations, float minAmplitude, float maxAmplitude);
 	void DrawSubparts(unsigned int thickness, Color color = GREEN);
 
-	void GenerateRooms(float minSizePercentage, float maxSizePercentage);
+	void GenerateRooms(float minSizePercentage, float maxSizePercentage, int multiple = 0);
 	void CutRooms(int maxRoomAmount, bool preferBiggerRooms, int minRoomX, int minRoomY);
+	void ConnectRooms();
+
 	void DrawRooms(Color color = WHITE);
 
 	inline int GetSubpartsCount() { return subparts.size(); }

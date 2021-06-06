@@ -56,13 +56,23 @@ void BSPDungeonGenerator::DrawSubparts(unsigned int thickness, Color color)
 	}
 }
 
-void BSPDungeonGenerator::GenerateRooms(float minSizePercentage, float maxSizePercentage)
+void BSPDungeonGenerator::GenerateRooms(float minSizePercentage, float maxSizePercentage, int multiple)
 {
 	rooms.clear();
 
 	for (int i = 0; i < subparts.size(); i++)
 	{
-		Rectangle room = { subparts[i].x + RNG::GenerateNumber<int>(0, subparts[i].width * 0.3f), subparts[i].y + RNG::GenerateNumber<int>(0, subparts[i].height * 0.3f), subparts[i].width * RNG::GenerateNumber<float>(minSizePercentage, maxSizePercentage), subparts[i].height * RNG::GenerateNumber<float>(minSizePercentage, maxSizePercentage) };
+		Rectangle room = 
+		{ 
+			subparts[i].x + RNG::GenerateNumber<int>(0, subparts[i].width * 0.3f),
+			subparts[i].y + RNG::GenerateNumber<int>(0, subparts[i].height * 0.3f),
+			subparts[i].width * RNG::GenerateNumber<float>(minSizePercentage, maxSizePercentage),
+			subparts[i].height * RNG::GenerateNumber<float>(minSizePercentage, maxSizePercentage)
+		};
+
+		room.width = MathUtils::Round(room.width, multiple);
+		room.height = MathUtils::Round(room.height, multiple);
+
 		rooms.push_back(room);
 	}
 }
@@ -74,7 +84,7 @@ void BSPDungeonGenerator::CutRooms(int maxRoomAmount, bool preferBiggerRooms, in
 	std::sort(rooms.begin(), rooms.end(),
 		[](const Rectangle& a, const Rectangle& b) -> bool 
 	{
-		return a.x + a.y > b.x + b.y;
+		return a.width + a.height > b.width + b.height;
 	});
 
 	if (currentRoomAmount > maxRoomAmount)
@@ -109,6 +119,11 @@ void BSPDungeonGenerator::CutRooms(int maxRoomAmount, bool preferBiggerRooms, in
 	}
 
 	rooms = roomCopy;
+}
+
+void BSPDungeonGenerator::ConnectRooms()
+{
+
 }
 
 void BSPDungeonGenerator::DrawRooms(Color color)

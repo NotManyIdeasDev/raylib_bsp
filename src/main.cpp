@@ -34,6 +34,8 @@ int main()
     int iterations = 3;
     int maxRooms = 8;
 
+    int unitSize = 16;
+
     int minRoomX = 60;
     int minRoomY = 60;
 
@@ -54,7 +56,7 @@ int main()
     bool showAdvancedInfo = false;
 
     dungeonGenerator.GenerateSubparts(iterations, minAmplitude, maxAmplitude);
-    dungeonGenerator.GenerateRooms(minPercentage, maxPercentage);
+    dungeonGenerator.GenerateRooms(minPercentage, maxPercentage, unitSize);
     dungeonGenerator.CutRooms(maxRooms, preferBiggerRooms, minRoomX, minRoomY);
 
     while (!WindowShouldClose())
@@ -115,7 +117,7 @@ int main()
 
         ImGui::TextColored({ (float)240 / 255, (float)180 / 255, (float)36 / 255, (float)255 / 255 }, "BSP Dungeon Generator");
         ImGui::SameLine(0, 0);
-        ImGui::TextColored({ (float)92 / 255, (float)80 / 255, (float)100 / 255, (float)255 / 255 }, " - v0.3");
+        ImGui::TextColored({ (float)92 / 255, (float)80 / 255, (float)100 / 255, (float)255 / 255 }, " - v0.3.1");
 
         ImGui::PopFont();
         
@@ -186,6 +188,11 @@ int main()
 
         ImGui::SliderInt("Max Rooms", &maxRooms, 1, pow(2, iterations));
 
+        if (maxRooms < pow(2, iterations))
+        {
+            ImGui::Checkbox("Prefer bigger rooms", &preferBiggerRooms);
+        }
+
         if (minAmplitude >= maxAmplitude)
         {
             maxAmplitude = minAmplitude + 0.01f;
@@ -197,6 +204,8 @@ int main()
         }
 
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+
+        ImGui::SliderInt("Unit Size", &unitSize, 0, 128);
 
         ImGui::SliderInt("Min. X Size", &minRoomX, 0, 200);
         ImGui::SliderInt("Min. Y Size", &minRoomY, 0, 200);
@@ -211,7 +220,6 @@ int main()
         ImGui::SliderFloat("Min. Room Multiplier", &minPercentage, 0.10f, 0.70f);
         ImGui::SliderFloat("Max. Room Multiplier", &maxPercentage, 0.15f, 0.75f);
 
-        ImGui::Checkbox("Prefer bigger rooms", &preferBiggerRooms);
         ImGui::PopFont();
 
         ImGui::PushFont(loadedImGuiFonts[20]);
@@ -220,12 +228,14 @@ int main()
         ImGui::PopFont();
 
         ImGui::PushFont(loadedImGuiFonts[18]);
-        ImGui::SliderInt("Line Thickness", &thickness, 1, 8);
+
 
         ImGui::Checkbox("Show BSP Subparts", &showBSPsubparts);
 
         if (showBSPsubparts)
         {
+            ImGui::SliderInt("Line Thickness", &thickness, 1, 8);
+
             int min = 0;
             int max = 255;
             ImGui::DragScalarN("Color", ImGuiDataType_U8, &subpartsColor.r, 4, 1.0f, &min, &max);
@@ -245,7 +255,7 @@ int main()
         if (ImGui::Button("Generate", { 120, 40 }))
         {
             dungeonGenerator.GenerateSubparts(iterations, minAmplitude, maxAmplitude);
-            dungeonGenerator.GenerateRooms(minPercentage, maxPercentage);
+            dungeonGenerator.GenerateRooms(minPercentage, maxPercentage, unitSize);
             dungeonGenerator.CutRooms(maxRooms, preferBiggerRooms, minRoomX, minRoomY);
             totalGeneration++;
         }
