@@ -14,11 +14,12 @@
 #include "graphics/sprite.h"
 #include "core/random_gen.h"
 #include "core/bsp_dungeon_gen.h"
+#include "core/core_utils.h"
 
 int main()
 {
     //********************SETUP********************//
-    Window window = Window(1920, 1080, "raylib - pixel art test", true);
+    Window window = Window(1920, 1080, "raylib - C++ BSP Dungeon Generator", true);
     Sprite::SetBaseFilePath("res/sprites/");
 
     const int virtualScreenWidth = 1920;
@@ -31,6 +32,9 @@ int main()
     BSPDungeonGenerator dungeonGenerator(dungeonArea);
 
     int totalGeneration = 1;
+
+    Vector4Int startDims = { dungeonArea.x, dungeonArea.y, dungeonArea.width, dungeonArea.height };
+
     int iterations = 3;
     int maxRooms = 8;
 
@@ -47,7 +51,7 @@ int main()
 
     bool preferBiggerRooms = true;
 
-    int thickness = 1;
+    int thickness = 2;
     Color subpartsColor = GREEN;
 
     bool uiLocked = true;
@@ -107,7 +111,7 @@ int main()
         BeginRLImGui();     
 
         ImGui::PushFont(loadedImGuiFonts[24]);
-        ImGui::Begin("Dungeon Generator v0.1", (bool*)0, ImGuiWindowFlags_NoTitleBar);
+        ImGui::Begin("Dungeon Generator v0.3.1", (bool*)0, ImGuiWindowFlags_NoTitleBar);
 
         if (uiLocked)
         {
@@ -115,72 +119,20 @@ int main()
             ImGui::SetWindowPos({ (float)window.width - 515, 15 });
         }
 
-        ImGui::TextColored({ (float)240 / 255, (float)180 / 255, (float)36 / 255, (float)255 / 255 }, "BSP Dungeon Generator");
+        ImGui::TextColored(CoreUtils::GetRainbowColor() , "BSP Dungeon Generator");
         ImGui::SameLine(0, 0);
-        ImGui::TextColored({ (float)92 / 255, (float)80 / 255, (float)100 / 255, (float)255 / 255 }, " - v0.3.1");
-
-        ImGui::PopFont();
-        
-        ImGui::PushFont(loadedImGuiFonts[20]);
-        ImGui::TextColored( { (float)92 / 255, (float)80 / 255,  (float)100 / 255, (float)255 / 255 }, "Debug Info");
-        ImGui::PopFont();
-
-        ImGui::PushFont(loadedImGuiFonts[18]);
-
-        ImGui::TextColored({ (float)220 / 255, (float)220 / 255,  (float)220 / 255, (float)255 / 255 }, "Dungeon #");
-        ImGui::SameLine(0, 0);
-        ImGui::TextColored({ (float)150 / 255, (float)255 / 255,  (float)255 / 255, (float)255 / 255 }, "%d", totalGeneration);
-
-        ImGui::TextColored({ (float)220/255, (float)220/255,  (float)220/255, (float)255/255 }, "Subparts: ");
-        ImGui::SameLine(0, 2);
-        ImGui::TextColored({ (float)150/255, (float)255/255,  (float)255/255, (float)255/255 }, "%d", dungeonGenerator.GetSubpartsCount());
-
-        ImGui::TextColored({ (float)220 / 255, (float)220 / 255,  (float)220 / 255, (float)255 / 255 }, "Rooms: ");
-        ImGui::SameLine(0, 2);
-        ImGui::TextColored({ (float)150 / 255, (float)255 / 255,  (float)255 / 255, (float)255 / 255 }, "%d", dungeonGenerator.GetRoomsCount());
-
-        ImGui::TextColored({ (float)220 / 255, (float)220 / 255,  (float)220 / 255, (float)255 / 255 }, "Discarded Rooms: ");
-        ImGui::SameLine(0, 2);
-        ImGui::TextColored({ (float)150 / 255, (float)255 / 255,  (float)255 / 255, (float)255 / 255 }, "%d", dungeonGenerator.GetDiscardedRoomsCount());
-
-        if (ImGui::Button("Advanced Info", { 120, 30 }))
-        {
-            showAdvancedInfo = true;
-        }
-
-        if (showAdvancedInfo)
-        {
-            if (!ImGui::Begin("Advanced Debug Info", &showAdvancedInfo))
-            {
-                ImGui::End();
-            }
-            else
-            {
-                ImGui::PushFont(loadedImGuiFonts[22]);
-                ImGui::TextColored({ (float)240 / 255, (float)180 / 255, (float)36 / 255, (float)255 / 255 }, "Rooms");
-                ImGui::PopFont();
-
-                for (int i = 0; i < dungeonGenerator.GetRoomsCount(); i++)
-                {
-                    ImGui::Text("Room [%d]", i);
-                    ImGui::SameLine(0);
-                    ImGui::TextColored({ (float)255 / 255, (float)40 / 255, (float)60 / 255, (float)255 / 255 }, "w: %.1f", dungeonGenerator.GetRooms()[i].width);
-                    ImGui::SameLine(0);
-                    ImGui::TextColored({ (float)40 / 255, (float)255 / 255, (float)60 / 255, (float)255 / 255 }, "h: %.1f", dungeonGenerator.GetRooms()[i].height);
-                }
-
-                ImGui::End();
-            }
-        }
+        ImGui::TextColored(CoreUtils::HexToRGB("#5c5064"), " - v0.3.2");
 
         ImGui::PopFont();
 
         ImGui::PushFont(loadedImGuiFonts[20]);
-        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
-        ImGui::TextColored({ (float)92 / 255, (float)80 / 255,  (float)100 / 255, (float)255 / 255 }, "Procgen Settings");
+        ImGui::TextColored(CoreUtils::HexToRGB("#5c5064"), "Procgen Settings");
         ImGui::PopFont();
 
         ImGui::PushFont(loadedImGuiFonts[18]);
+
+        ImGui::InputInt4("Dungeon dimensions", &startDims.x);
+
         if (ImGui::SliderInt("Iterations", &iterations, 1, 8))
         {
             maxRooms = pow(2, iterations);
@@ -207,6 +159,8 @@ int main()
 
         ImGui::SliderInt("Unit Size", &unitSize, 0, 128);
 
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+
         ImGui::SliderInt("Min. X Size", &minRoomX, 0, 200);
         ImGui::SliderInt("Min. Y Size", &minRoomY, 0, 200);
 
@@ -224,7 +178,7 @@ int main()
 
         ImGui::PushFont(loadedImGuiFonts[20]);
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
-        ImGui::TextColored({ (float)92 / 255, (float)80 / 255,  (float)100 / 255, (float)255 / 255 }, "Debug Settings");
+        ImGui::TextColored(CoreUtils::HexToRGB("#5c5064"), "Debug Settings");
         ImGui::PopFont();
 
         ImGui::PushFont(loadedImGuiFonts[18]);
@@ -252,13 +206,17 @@ int main()
 
         ImGui::PushFont(loadedImGuiFonts[22]);
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+
+        ImGui::PushStyleColor(ImGuiCol_Text, CoreUtils::GetRainbowColor());
         if (ImGui::Button("Generate", { 120, 40 }))
         {
+            dungeonGenerator.SetStartArea(startDims);
             dungeonGenerator.GenerateSubparts(iterations, minAmplitude, maxAmplitude);
             dungeonGenerator.GenerateRooms(minPercentage, maxPercentage, unitSize);
             dungeonGenerator.CutRooms(maxRooms, preferBiggerRooms, minRoomX, minRoomY);
             totalGeneration++;
         }
+        ImGui::PopStyleColor();
 
         ImGui::SameLine(0);
 
@@ -271,6 +229,65 @@ int main()
             subpartsColor = GREEN;
             uiLocked = true;
         }
+
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+
+        ImGui::PushFont(loadedImGuiFonts[20]);
+        ImGui::TextColored(CoreUtils::HexToRGB("#5c5064"), "Debug Info");
+        ImGui::PopFont();
+
+        ImGui::PushFont(loadedImGuiFonts[18]);
+
+        ImGui::TextColored(CoreUtils::HexToRGB("#dcdcdc"), "Dungeon #");
+        ImGui::SameLine(0, 0);
+        ImGui::TextColored(CoreUtils::HexToRGB("#96ffff"), "%d", totalGeneration);
+
+        ImGui::TextColored(CoreUtils::HexToRGB("#dcdcdc"), "Subparts: ");
+        ImGui::SameLine(0, 2);
+        ImGui::TextColored(CoreUtils::HexToRGB("#96ffff"), "%d", dungeonGenerator.GetSubpartsCount());
+
+        ImGui::TextColored(CoreUtils::HexToRGB("#dcdcdc"), "Rooms: ");
+        ImGui::SameLine(0, 2);
+        ImGui::TextColored(CoreUtils::HexToRGB("#96ffff"), "%d", dungeonGenerator.GetRoomsCount());
+
+        ImGui::TextColored(CoreUtils::HexToRGB("#dcdcdc"), "Discarded Rooms: ");
+        ImGui::SameLine(0, 2);
+        ImGui::TextColored(CoreUtils::HexToRGB("#96ffff"), "%d", dungeonGenerator.GetDiscardedRoomsCount());
+
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+
+        if (ImGui::Button("Advanced Info", { 120, 30 }))
+        {
+            showAdvancedInfo = true;
+        }
+
+        if (showAdvancedInfo)
+        {
+            if (!ImGui::Begin("Advanced Debug Info", &showAdvancedInfo))
+            {
+                ImGui::End();
+            }
+            else
+            {
+                ImGui::PushFont(loadedImGuiFonts[22]);
+                ImGui::TextColored(CoreUtils::HexToRGB("#f0b424"), "Rooms");
+                ImGui::PopFont();
+
+                for (int i = 0; i < dungeonGenerator.GetRoomsCount(); i++)
+                {
+                    ImGui::Text("Room [%d]", i);
+                    ImGui::SameLine(0);
+                    ImGui::TextColored(CoreUtils::HexToRGB("#ff283c"), "w: %.1f", dungeonGenerator.GetRooms()[i].width);
+                    ImGui::SameLine(0);
+                    ImGui::TextColored(CoreUtils::HexToRGB("#28ff3c"), "h: %.1f", dungeonGenerator.GetRooms()[i].height);
+                }
+
+                ImGui::End();
+            }
+        }
+
+        ImGui::PopFont();
+
 
         ImGui::PopFont();
         ImGui::End();
@@ -285,9 +302,9 @@ int main()
             ImGui::SetWindowPos({ (float)window.width - 515, (float)window.height - 365 });
         }
 
-        ImGui::TextColored({ (float)68 / 255, (float)209 / 255, (float)219 / 255, (float)255 / 255 }, "Camera Controls");
+        ImGui::TextColored(CoreUtils::HexToRGB("#44d1db"), "Camera Controls");
         ImGui::SameLine(0, 0);
-        ImGui::TextColored({ (float)92 / 255, (float)80 / 255, (float)100 / 255, (float)255 / 255 }, " - Raylib");
+        ImGui::TextColored(CoreUtils::HexToRGB("#5c5064"), " - Raylib");
         ImGui::PopFont();
 
         ImGui::PushFont(loadedImGuiFonts[18]);

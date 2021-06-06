@@ -22,6 +22,8 @@ public:
 
 	void DrawRooms(Color color = WHITE);
 
+	inline void SetStartArea(Rectangle rec) { startDungeonArea = rec; }
+
 	inline int GetSubpartsCount() { return subparts.size(); }
 	inline int GetRoomsCount() { return rooms.size(); }
 	inline int GetDiscardedRoomsCount() { return subparts.size() - rooms.size(); }

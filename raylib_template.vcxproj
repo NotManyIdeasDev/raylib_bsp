@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="libs\raylib-3.7\include\raylib.h" />
     <ClInclude Include="src\core\bsp_dungeon_gen.h" />
+    <ClInclude Include="src\core\core_utils.h" />
     <ClInclude Include="src\core\math_utils.h" />
     <ClInclude Include="src\core\random_gen.h" />
     <ClInclude Include="src\core\transform.h" />

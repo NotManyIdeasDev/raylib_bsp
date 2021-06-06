@@ -1,65 +1,19 @@
-﻿  bsp_dungeon_gen.cpp
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(25,32): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(26,29): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(27,38): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(12,20): warning C4018: '<': signed/unsigned mismatch
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(20,41): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(28,108): warning C4244: 'argument': conversion from 'float' to 'Numeric', possible loss of data
-          with
-          [
-              Numeric=int
-          ]
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(28,73): warning C4244: 'argument': conversion from 'float' to 'Numeric', possible loss of data
-          with
-          [
-              Numeric=int
-          ]
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(29,75): warning C4838: conversion from 'unsigned int' to 'float' requires a narrowing conversion
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(29,75): warning C4244: 'initializing': conversion from 'unsigned int' to 'float', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(38,106): warning C4244: 'argument': conversion from 'float' to 'Numeric', possible loss of data
-          with
-          [
-              Numeric=int
-          ]
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(38,72): warning C4244: 'argument': conversion from 'float' to 'Numeric', possible loss of data
-          with
-          [
-              Numeric=int
-          ]
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(39,56): warning C4838: conversion from 'unsigned int' to 'float' requires a narrowing conversion
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(39,56): warning C4244: 'initializing': conversion from 'unsigned int' to 'float', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(67,66): warning C4244: 'argument': conversion from 'float' to 'Numeric', possible loss of data
-          with
-          [
-              Numeric=int
-          ]
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(68,67): warning C4244: 'argument': conversion from 'float' to 'Numeric', possible loss of data
-          with
-          [
-              Numeric=int
-          ]
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(73,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(73,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(74,38): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(74,33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(82,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(96,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(97,65): warning C4267: 'argument': conversion from 'size_t' to 'Numeric', possible loss of data
-          with
-          [
-              Numeric=int
-          ]
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(102,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(133,49): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(133,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(133,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.cpp(133,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  main.cpp
+﻿  main.cpp
 E:\Raylib-Projects\raylib_template\raylib_template\vendor\imgui\rlImGui.h(35,21): warning C4091: 'extern ': ignored on left of 'ImFont' when no variable is declared
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(25,32): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(26,29): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(27,38): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(186,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(189,56): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-  Generating Code...
+E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(27,32): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(28,29): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(29,38): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\core\core_utils.h(30,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\core\core_utils.h(31,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\core\core_utils.h(32,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,41): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,41): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,56): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,56): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,71): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,71): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,90): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,90): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(138,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(141,56): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
   raylib_template.vcxproj -> E:\Raylib-Projects\raylib_template\x64\Debug\raylib_template.exe

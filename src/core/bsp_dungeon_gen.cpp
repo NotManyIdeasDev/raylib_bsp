@@ -103,7 +103,6 @@ void BSPDungeonGenerator::CutRooms(int maxRoomAmount, bool preferBiggerRooms, in
 				int random = RNG::GenerateNumber<int>(0, half - 1);
 				rooms.erase(rooms.begin() + random);
 			}
-
 		}
 	}
 

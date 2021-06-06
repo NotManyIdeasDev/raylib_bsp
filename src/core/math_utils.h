@@ -16,5 +16,4 @@ public:
 
 	    return number - remainder;
 	}
-
 };
