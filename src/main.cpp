@@ -34,11 +34,16 @@ int main()
     int iterations = 3;
     int maxRooms = 8;
 
+    int minRoomX = 60;
+    int minRoomY = 60;
+
     float minAmplitude = 0.45f;
     float maxAmplitude = 0.55f;
 
     float minPercentage = 0.3f;
     float maxPercentage = 0.7f;
+
+    bool preferBiggerRooms = true;
 
     int thickness = 1;
     Color subpartsColor = GREEN;
@@ -46,8 +51,11 @@ int main()
     bool uiLocked = true;
     bool showBSPsubparts = true;
 
+    bool showAdvancedInfo = false;
+
     dungeonGenerator.GenerateSubparts(iterations, minAmplitude, maxAmplitude);
     dungeonGenerator.GenerateRooms(minPercentage, maxPercentage);
+    dungeonGenerator.CutRooms(maxRooms, preferBiggerRooms, minRoomX, minRoomY);
 
     while (!WindowShouldClose())
     {
@@ -107,7 +115,7 @@ int main()
 
         ImGui::TextColored({ (float)240 / 255, (float)180 / 255, (float)36 / 255, (float)255 / 255 }, "BSP Dungeon Generator");
         ImGui::SameLine(0, 0);
-        ImGui::TextColored({ (float)92 / 255, (float)80 / 255, (float)100 / 255, (float)255 / 255 }, " - v0.2");
+        ImGui::TextColored({ (float)92 / 255, (float)80 / 255, (float)100 / 255, (float)255 / 255 }, " - v0.3");
 
         ImGui::PopFont();
         
@@ -128,6 +136,40 @@ int main()
         ImGui::TextColored({ (float)220 / 255, (float)220 / 255,  (float)220 / 255, (float)255 / 255 }, "Rooms: ");
         ImGui::SameLine(0, 2);
         ImGui::TextColored({ (float)150 / 255, (float)255 / 255,  (float)255 / 255, (float)255 / 255 }, "%d", dungeonGenerator.GetRoomsCount());
+
+        ImGui::TextColored({ (float)220 / 255, (float)220 / 255,  (float)220 / 255, (float)255 / 255 }, "Discarded Rooms: ");
+        ImGui::SameLine(0, 2);
+        ImGui::TextColored({ (float)150 / 255, (float)255 / 255,  (float)255 / 255, (float)255 / 255 }, "%d", dungeonGenerator.GetDiscardedRoomsCount());
+
+        if (ImGui::Button("Advanced Info", { 120, 30 }))
+        {
+            showAdvancedInfo = true;
+        }
+
+        if (showAdvancedInfo)
+        {
+            if (!ImGui::Begin("Advanced Debug Info", &showAdvancedInfo))
+            {
+                ImGui::End();
+            }
+            else
+            {
+                ImGui::PushFont(loadedImGuiFonts[22]);
+                ImGui::TextColored({ (float)240 / 255, (float)180 / 255, (float)36 / 255, (float)255 / 255 }, "Rooms");
+                ImGui::PopFont();
+
+                for (int i = 0; i < dungeonGenerator.GetRoomsCount(); i++)
+                {
+                    ImGui::Text("Room [%d]", i);
+                    ImGui::SameLine(0);
+                    ImGui::TextColored({ (float)255 / 255, (float)40 / 255, (float)60 / 255, (float)255 / 255 }, "w: %.1f", dungeonGenerator.GetRooms()[i].width);
+                    ImGui::SameLine(0);
+                    ImGui::TextColored({ (float)40 / 255, (float)255 / 255, (float)60 / 255, (float)255 / 255 }, "h: %.1f", dungeonGenerator.GetRooms()[i].height);
+                }
+
+                ImGui::End();
+            }
+        }
 
         ImGui::PopFont();
 
@@ -154,11 +196,22 @@ int main()
             maxPercentage = minPercentage + 0.01f;
         }
 
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+
+        ImGui::SliderInt("Min. X Size", &minRoomX, 0, 200);
+        ImGui::SliderInt("Min. Y Size", &minRoomY, 0, 200);
+
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+
         ImGui::SliderFloat("Min. Amplitude", &minAmplitude, 0.10f, 0.89f);
         ImGui::SliderFloat("Max. Amplitude", &maxAmplitude, 0.11f, 0.90f);
 
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+
         ImGui::SliderFloat("Min. Room Multiplier", &minPercentage, 0.10f, 0.70f);
         ImGui::SliderFloat("Max. Room Multiplier", &maxPercentage, 0.15f, 0.75f);
+
+        ImGui::Checkbox("Prefer bigger rooms", &preferBiggerRooms);
         ImGui::PopFont();
 
         ImGui::PushFont(loadedImGuiFonts[20]);
@@ -193,7 +246,7 @@ int main()
         {
             dungeonGenerator.GenerateSubparts(iterations, minAmplitude, maxAmplitude);
             dungeonGenerator.GenerateRooms(minPercentage, maxPercentage);
-            dungeonGenerator.CutRooms(maxRooms);
+            dungeonGenerator.CutRooms(maxRooms, preferBiggerRooms, minRoomX, minRoomY);
             totalGeneration++;
         }
 

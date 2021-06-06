@@ -4,7 +4,7 @@
 class RNG
 {
 public:
-	//Proudly stolen from stackoverflow
+	// Proudly stolen from StackOverflow
 	template<typename Numeric, typename Generator = std::mt19937>
 	static Numeric GenerateNumber(Numeric from, Numeric to)
 	{

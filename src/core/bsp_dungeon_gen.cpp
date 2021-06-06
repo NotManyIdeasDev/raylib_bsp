@@ -67,18 +67,48 @@ void BSPDungeonGenerator::GenerateRooms(float minSizePercentage, float maxSizePe
 	}
 }
 
-void BSPDungeonGenerator::CutRooms(int maxRoomAmount)
+void BSPDungeonGenerator::CutRooms(int maxRoomAmount, bool preferBiggerRooms, int minRoomX, int minRoomY)
 {
 	int currentRoomAmount = rooms.size();
+
+	std::sort(rooms.begin(), rooms.end(),
+		[](const Rectangle& a, const Rectangle& b) -> bool 
+	{
+		return a.x + a.y > b.x + b.y;
+	});
 
 	if (currentRoomAmount > maxRoomAmount)
 	{
 		for (int i = currentRoomAmount; i > maxRoomAmount; i--)
 		{
-			int randomIndex = RNG::GenerateNumber<int>(0, rooms.size() - 1);
-			rooms.erase(rooms.begin() + randomIndex);
+			if (preferBiggerRooms)
+			{
+				int half = rooms.size() / 2;
+				int random = RNG::GenerateNumber<int>(half, rooms.size() - 1);
+				rooms.erase(rooms.begin() + random);
+			}
+			else
+			{
+				int half = rooms.size() / 2;
+				int random = RNG::GenerateNumber<int>(0, half - 1);
+				rooms.erase(rooms.begin() + random);
+			}
+
 		}
 	}
+
+	std::vector<Rectangle> roomCopy = GetRoomsReference();
+	std::vector<Rectangle>::const_iterator iter = roomCopy.begin();
+
+	while (iter != roomCopy.end())
+	{
+		if (iter->width < minRoomX || iter->height < minRoomY)
+			iter = roomCopy.erase(iter);
+		else
+			++iter;
+	}
+
+	rooms = roomCopy;
 }
 
 void BSPDungeonGenerator::DrawRooms(Color color)
@@ -87,14 +117,4 @@ void BSPDungeonGenerator::DrawRooms(Color color)
 	{
 		DrawRectangle(room.x, room.y, room.width, room.height, color);
 	}
-}
-
-int BSPDungeonGenerator::GetSubpartsCount()
-{
-	return subparts.size();
-}
-
-int BSPDungeonGenerator::GetRoomsCount()
-{
-	return rooms.size();
 }
