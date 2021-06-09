@@ -12,6 +12,7 @@
 #include "window.h"
 #include "pixel_camera.h"
 #include "graphics/sprite.h"
+#include "core/room.h"
 #include "core/random_gen.h"
 #include "core/bsp_dungeon_gen.h"
 #include "core/core_utils.h"
@@ -19,7 +20,7 @@
 int main()
 {
     //********************SETUP********************//
-    Window window = Window(1920, 1080, "raylib - C++ BSP Dungeon Generator", true);
+    Window window = Window(1920, 1080, "C++ BSP Dungeon Generator - v0.3.3", true);
     Sprite::SetBaseFilePath("res/sprites/");
 
     const int virtualScreenWidth = 1920;
@@ -121,7 +122,7 @@ int main()
 
         ImGui::TextColored(CoreUtils::GetRainbowColor() , "BSP Dungeon Generator");
         ImGui::SameLine(0, 0);
-        ImGui::TextColored(CoreUtils::HexToRGB("#5c5064"), " - v0.3.2");
+        ImGui::TextColored(CoreUtils::HexToRGB("#5c5064"), " - v0.3.3");
 
         ImGui::PopFont();
 
@@ -133,7 +134,7 @@ int main()
 
         ImGui::InputInt4("Dungeon dimensions", &startDims.x);
 
-        if (ImGui::SliderInt("Iterations", &iterations, 1, 8))
+        if (ImGui::SliderInt("Iterations", &iterations, 1, 7))
         {
             maxRooms = pow(2, iterations);
         }
@@ -200,9 +201,7 @@ int main()
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 10);
 
         ImGui::Checkbox("Lock UI", &uiLocked);
-        ImGui::PopFont();
-
-        
+        ImGui::PopFont();      
 
         ImGui::PushFont(loadedImGuiFonts[22]);
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
@@ -214,6 +213,7 @@ int main()
             dungeonGenerator.GenerateSubparts(iterations, minAmplitude, maxAmplitude);
             dungeonGenerator.GenerateRooms(minPercentage, maxPercentage, unitSize);
             dungeonGenerator.CutRooms(maxRooms, preferBiggerRooms, minRoomX, minRoomY);
+            dungeonGenerator.ConnectRooms();
             totalGeneration++;
         }
         ImGui::PopStyleColor();
@@ -228,6 +228,14 @@ int main()
             thickness = 1;
             subpartsColor = GREEN;
             uiLocked = true;
+            preferBiggerRooms = true;
+            minRoomX = 60;
+            minRoomY = 60;
+            unitSize = 8;
+            startDims = { 410, 100, 800, 800 };
+            minPercentage = 0.3f;
+            maxPercentage = 0.7f;
+            maxRooms = 8;
         }
 
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
@@ -277,13 +285,29 @@ int main()
                 {
                     ImGui::Text("Room [%d]", i);
                     ImGui::SameLine(0);
-                    ImGui::TextColored(CoreUtils::HexToRGB("#ff283c"), "w: %.1f", dungeonGenerator.GetRooms()[i].width);
+                    ImGui::TextColored(CoreUtils::HexToRGB("#ff283c"), "w: %.1f", dungeonGenerator.GetRooms()[i].transform.width);
                     ImGui::SameLine(0);
-                    ImGui::TextColored(CoreUtils::HexToRGB("#28ff3c"), "h: %.1f", dungeonGenerator.GetRooms()[i].height);
+                    ImGui::TextColored(CoreUtils::HexToRGB("#28ff3c"), "h: %.1f", dungeonGenerator.GetRooms()[i].transform.height);
                 }
 
                 ImGui::End();
             }
+        }
+
+        if (dungeonGenerator.GetRoomsCount() == 0)
+        {
+            ImGui::Begin("Error");
+            ImGui::SetWindowSize({460, 150});
+
+            ImGui::PushFont(loadedImGuiFonts[30]);
+            ImGui::TextColored(CoreUtils::HexToRGB("#db0f3f"), "Error!");
+            ImGui::PopFont();
+
+            ImGui::PushFont(loadedImGuiFonts[22]);
+            ImGui::TextColored(CoreUtils::HexToRGB("#ffe6eb"), "No rooms were generated, try different settings.");
+            ImGui::PopFont();
+
+            ImGui::End();
         }
 
         ImGui::PopFont();

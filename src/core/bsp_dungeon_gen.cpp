@@ -3,6 +3,7 @@
 BSPDungeonGenerator::BSPDungeonGenerator(Rectangle startArea)
 	: startDungeonArea(startArea)
 {
+
 }
 
 void BSPDungeonGenerator::GenerateSubparts(unsigned int iterations, float minAmplitude, float maxAmplitude)
@@ -62,7 +63,7 @@ void BSPDungeonGenerator::GenerateRooms(float minSizePercentage, float maxSizePe
 
 	for (int i = 0; i < subparts.size(); i++)
 	{
-		Rectangle room = 
+		Room room = 
 		{ 
 			subparts[i].x + RNG::GenerateNumber<int>(0, subparts[i].width * 0.3f),
 			subparts[i].y + RNG::GenerateNumber<int>(0, subparts[i].height * 0.3f),
@@ -70,8 +71,8 @@ void BSPDungeonGenerator::GenerateRooms(float minSizePercentage, float maxSizePe
 			subparts[i].height * RNG::GenerateNumber<float>(minSizePercentage, maxSizePercentage)
 		};
 
-		room.width = MathUtils::Round(room.width, multiple);
-		room.height = MathUtils::Round(room.height, multiple);
+		room.transform.width = MathUtils::Round(room.transform.width, multiple);
+		room.transform.height = MathUtils::Round(room.transform.height, multiple);
 
 		rooms.push_back(room);
 	}
@@ -82,9 +83,9 @@ void BSPDungeonGenerator::CutRooms(int maxRoomAmount, bool preferBiggerRooms, in
 	int currentRoomAmount = rooms.size();
 
 	std::sort(rooms.begin(), rooms.end(),
-		[](const Rectangle& a, const Rectangle& b) -> bool 
+		[](const Room& a, const Room& b) -> bool 
 	{
-		return a.width + a.height > b.width + b.height;
+		return a.transform.width + a.transform.height > b.transform.width + b.transform.height;
 	});
 
 	if (currentRoomAmount > maxRoomAmount)
@@ -94,30 +95,45 @@ void BSPDungeonGenerator::CutRooms(int maxRoomAmount, bool preferBiggerRooms, in
 			if (preferBiggerRooms)
 			{
 				int half = rooms.size() / 2;
-				int random = RNG::GenerateNumber<int>(half, rooms.size() - 1);
-				rooms.erase(rooms.begin() + random);
+
+				if (rooms.size() - 1 >= half)
+				{
+					int random = RNG::GenerateNumber<int>(half, rooms.size() - 1);
+					rooms.erase(rooms.begin() + random);
+				}
 			}
 			else
 			{
 				int half = rooms.size() / 2;
-				int random = RNG::GenerateNumber<int>(0, half - 1);
+				int random = 0;
+
+				if (half >= 1)
+					random = RNG::GenerateNumber<int>(0, half - 1);
+				else
+					random = RNG::GenerateNumber<int>(0, 1);
+
 				rooms.erase(rooms.begin() + random);
 			}
 		}
 	}
 
-	std::vector<Rectangle> roomCopy = GetRoomsReference();
-	std::vector<Rectangle>::const_iterator iter = roomCopy.begin();
+	std::vector<Room> roomCopy = GetRoomsReference();
+	std::vector<Room>::const_iterator iter = roomCopy.begin();
 
 	while (iter != roomCopy.end())
 	{
-		if (iter->width < minRoomX || iter->height < minRoomY)
+		if (iter->transform.width < minRoomX || iter->transform.height < minRoomY)
 			iter = roomCopy.erase(iter);
 		else
 			++iter;
 	}
 
 	rooms = roomCopy;
+
+	int finalRoomCount = rooms.size();
+
+	if ((finalRoomCount - 1) > 0)
+		rooms[RNG::GenerateNumber<int>(0, finalRoomCount - 1)].flags = RoomFlags::STARTING;
 }
 
 void BSPDungeonGenerator::ConnectRooms()
@@ -127,8 +143,20 @@ void BSPDungeonGenerator::ConnectRooms()
 
 void BSPDungeonGenerator::DrawRooms(Color color)
 {
-	for (auto& room : rooms)
+	for (int i = 0; i < rooms.size(); i++)
 	{
-		DrawRectangle(room.x, room.y, room.width, room.height, color);
+		if (rooms[i].flags == RoomFlags::STARTING)
+		{
+			DrawRectangle(rooms[i].transform.x, rooms[i].transform.y, rooms[i].transform.width, rooms[i].transform.height, RED);
+		}
+		else
+			DrawRectangle(rooms[i].transform.x, rooms[i].transform.y, rooms[i].transform.width, rooms[i].transform.height, color);
+
+		//if (i > 0)
+		//	DrawLineEx({ rooms[i].width / 2 + rooms[i].x, rooms[i].height / 2 + rooms[i].y }, { rooms[i - 1].width / 2 + rooms[i - 1].x, rooms[i - 1].height / 2 + rooms[i - 1].y }, 2, DARKPURPLE);
+		//else
+		//{
+		//	DrawLineEx({ rooms[0].width / 2 + rooms[0].x, rooms[0].height / 2 + rooms[0].y } , { rooms[1].width / 2 + rooms[1].x, rooms[1].height / 2 + rooms[1].y }, 2, DARKPURPLE);
+		//}
 	}
 }

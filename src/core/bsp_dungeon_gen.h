@@ -2,7 +2,9 @@
 #include <raylib.h>
 #include <raymath.h>
 #include <vector>
+#include <math.h>
 #include "random_gen.h"
+#include "room.h"
 #include "math_utils.h"
 #include <iostream>
 #include <algorithm>
@@ -28,15 +30,15 @@ public:
 	inline int GetRoomsCount() { return rooms.size(); }
 	inline int GetDiscardedRoomsCount() { return subparts.size() - rooms.size(); }
 
-	inline std::vector<Rectangle> GetRooms() { return rooms; }
+	inline std::vector<Room> GetRooms() { return rooms; }
 
 
 private:
 	Rectangle startDungeonArea;
 	std::vector<Rectangle> subparts;
-	std::vector<Rectangle> rooms;
+	std::vector<Room> rooms;
 
-	inline const std::vector<Rectangle>& GetRoomsReference() { return rooms; }
+	inline const std::vector<Room>& GetRoomsReference() { return rooms; }
 
 	int discardedRooms = 0;
 };

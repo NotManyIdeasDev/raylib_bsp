@@ -24,6 +24,7 @@
     <ClInclude Include="src\core\core_utils.h" />
     <ClInclude Include="src\core\math_utils.h" />
     <ClInclude Include="src\core\random_gen.h" />
+    <ClInclude Include="src\core\room.h" />
     <ClInclude Include="src\core\transform.h" />
     <ClInclude Include="src\graphics\sprite.h" />
     <ClInclude Include="src\pixel_camera.h" />

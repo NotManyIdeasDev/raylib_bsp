@@ -1,19 +1,19 @@
 ﻿  main.cpp
 E:\Raylib-Projects\raylib_template\raylib_template\vendor\imgui\rlImGui.h(35,21): warning C4091: 'extern ': ignored on left of 'ImFont' when no variable is declared
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(27,32): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(28,29): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(29,38): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(29,32): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(30,29): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\core\bsp_dungeon_gen.h(31,38): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
 E:\Raylib-Projects\raylib_template\raylib_template\src\core\core_utils.h(30,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 E:\Raylib-Projects\raylib_template\raylib_template\src\core\core_utils.h(31,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 E:\Raylib-Projects\raylib_template\raylib_template\src\core\core_utils.h(32,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,41): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,41): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,56): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,56): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,71): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,71): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,90): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(36,90): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(138,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(141,56): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(37,41): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(37,41): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(37,56): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(37,56): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(37,71): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(37,71): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(37,90): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(37,90): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(139,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\Raylib-Projects\raylib_template\raylib_template\src\main.cpp(142,56): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
   raylib_template.vcxproj -> E:\Raylib-Projects\raylib_template\x64\Debug\raylib_template.exe
