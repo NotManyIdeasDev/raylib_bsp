@@ -122,7 +122,7 @@ int main()
 
         ImGui::TextColored(CoreUtils::GetRainbowColor() , "BSP Dungeon Generator");
         ImGui::SameLine(0, 0);
-        ImGui::TextColored(CoreUtils::HexToRGB("#5c5064"), " - v0.3.3");
+        ImGui::TextColored(CoreUtils::HexToRGB("#5c5064"), " - v0.3.4");
 
         ImGui::PopFont();
 
@@ -213,7 +213,6 @@ int main()
             dungeonGenerator.GenerateSubparts(iterations, minAmplitude, maxAmplitude);
             dungeonGenerator.GenerateRooms(minPercentage, maxPercentage, unitSize);
             dungeonGenerator.CutRooms(maxRooms, preferBiggerRooms, minRoomX, minRoomY);
-            dungeonGenerator.ConnectRooms();
             totalGeneration++;
         }
         ImGui::PopStyleColor();

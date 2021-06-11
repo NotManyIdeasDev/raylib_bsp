@@ -20,7 +20,6 @@ public:
 
 	void GenerateRooms(float minSizePercentage, float maxSizePercentage, int multiple = 0);
 	void CutRooms(int maxRoomAmount, bool preferBiggerRooms, int minRoomX, int minRoomY);
-	void ConnectRooms();
 
 	void DrawRooms(Color color = WHITE);
 
@@ -37,6 +36,8 @@ private:
 	Rectangle startDungeonArea;
 	std::vector<Rectangle> subparts;
 	std::vector<Room> rooms;
+
+	int startingIndex;
 
 	inline const std::vector<Room>& GetRoomsReference() { return rooms; }
 

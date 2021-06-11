@@ -133,12 +133,11 @@ void BSPDungeonGenerator::CutRooms(int maxRoomAmount, bool preferBiggerRooms, in
 	int finalRoomCount = rooms.size();
 
 	if ((finalRoomCount - 1) > 0)
-		rooms[RNG::GenerateNumber<int>(0, finalRoomCount - 1)].flags = RoomFlags::STARTING;
-}
-
-void BSPDungeonGenerator::ConnectRooms()
-{
-
+	{
+		int r_index = RNG::GenerateNumber<int>(0, finalRoomCount - 1);
+		rooms[r_index].flags = RoomFlags::STARTING;
+		startingIndex = r_index;
+	}
 }
 
 void BSPDungeonGenerator::DrawRooms(Color color)
@@ -147,16 +146,26 @@ void BSPDungeonGenerator::DrawRooms(Color color)
 	{
 		if (rooms[i].flags == RoomFlags::STARTING)
 		{
-			DrawRectangle(rooms[i].transform.x, rooms[i].transform.y, rooms[i].transform.width, rooms[i].transform.height, RED);
+			DrawRectangleRec(rooms[i].transform, RED);
 		}
 		else
-			DrawRectangle(rooms[i].transform.x, rooms[i].transform.y, rooms[i].transform.width, rooms[i].transform.height, color);
+			DrawRectangleRec(rooms[i].transform, color);
 
 		//if (i > 0)
-		//	DrawLineEx({ rooms[i].width / 2 + rooms[i].x, rooms[i].height / 2 + rooms[i].y }, { rooms[i - 1].width / 2 + rooms[i - 1].x, rooms[i - 1].height / 2 + rooms[i - 1].y }, 2, DARKPURPLE);
+		//{
+		//	DrawLineEx(
+		//		{ rooms[i].transform.width / 2 + rooms[i].transform.x, rooms[i].transform.height / 2 + rooms[i].transform.y },
+		//		{ rooms[i - 1].transform.width / 2 + rooms[i - 1].transform.x, rooms[i - 1].transform.height / 2 + rooms[i - 1].transform.y },
+		//		2,
+		//		DARKPURPLE);
+		//}
 		//else
 		//{
-		//	DrawLineEx({ rooms[0].width / 2 + rooms[0].x, rooms[0].height / 2 + rooms[0].y } , { rooms[1].width / 2 + rooms[1].x, rooms[1].height / 2 + rooms[1].y }, 2, DARKPURPLE);
+		//	DrawLineEx(
+		//		{ rooms[0].transform.width / 2 + rooms[0].transform.x, rooms[0].transform.height / 2 + rooms[0].transform.y },
+		//		{ rooms[1].transform.width / 2 + rooms[1].transform.x, rooms[1].transform.height / 2 + rooms[1].transform.y },
+		//		2,
+		//		DARKPURPLE);
 		//}
 	}
 }
